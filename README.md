@@ -3,4 +3,4 @@
 Description
 -------------
 
-ce projeet a été rél
+Ce projet a été réalisé par Wandrille Falala et Typhaine Jouan.
