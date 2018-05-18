@@ -25,7 +25,8 @@ public class Connexion {
 	/**
 	 * Chemin de l'emplacement de la base de données
 	 */
-	
+	Path currentRelativePath = Paths.get("");
+	String s = currentRelativePath.toAbsolutePath().toString();
 	String filePath = Paths.get("Collector.db").toAbsolutePath().toString();
 	private Path DB_Path = Paths.get(filePath);
 	/**
@@ -40,7 +41,6 @@ public class Connexion {
 	 * Chemin d'accès au fichier texte de sauvegarde des modifications de la BDD
 	 */
 	static String filePath_log = Paths.get("Historique.txt").toAbsolutePath().toString();
-	private static Path log_path = Paths.get(filePath_log);
 
 	
 	/**
@@ -48,6 +48,7 @@ public class Connexion {
 	 * Elle n'a pas d'argument et essaye de se connecter à la base de donnée SQLite3
 	 */
 	private Connexion() {
+		System.out.println("Current relative path is: " + s);
 		try {
 			conn = DriverManager.getConnection("jdbc:sqlite:" + DB_Path);
 		}

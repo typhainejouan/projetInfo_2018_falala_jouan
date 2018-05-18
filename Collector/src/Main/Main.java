@@ -10,17 +10,19 @@ import coeur_collector.*;
  *
  */
 public class Main {
-	
+
 	/**
 	 * Méthode d'affichage du menu
 	 */
-	public static void menu() {
+	public static String menu() {
 		int choix;
+		String str="n";
 		System.out.println("Que voulez vous faire ?");
 		System.out.println("Pour faire une recherche, tapez 1");
 		System.out.println("Pour modifier la BDD, tapez 2");
 		System.out.println("Pour calculer les statistiques, tapez 3");
 		System.out.println("Pour visualiser la carte, tapez 4");
+		System.out.println("Pour quitter le programme, tapez 5");
 		System.out.print("Choix = ");
 		choix = Connexion.sc.nextInt();
 		if(choix==1) {
@@ -49,14 +51,19 @@ public class Main {
 		}
 		if(choix==4) {
 			Utilisateur.visualiser_carte();
-		}	
+		}
+		if(choix==5) {
+			str = "q";
+		}
+		return str;
 	}
 
 	public static void main(String[] args) {
-		
-		
+
+
 		int log = 0;
-		
+		String quit = "n";
+
 		//Authentification
 		try {
 			log = Utilisateur.login();
@@ -64,10 +71,12 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		//Si l'utilisateur est administrateur
 		if(log==2) {
-			menu();
+			while(quit.equals("n")) {
+				quit = menu();
+			}
 		}
 
 		//Si l'utilisateur est un éboueur
