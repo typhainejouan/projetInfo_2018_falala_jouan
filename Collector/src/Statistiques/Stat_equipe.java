@@ -153,9 +153,9 @@ public class Stat_equipe {
 		
 		//Récupération de la requête SQL pour le poids ramassé en un mois pour l'équipe
 		Statement statement = Connexion.getInstance().createStatement();											//Création du statement de la BDD
-		ResultSet rs = statement.executeQuery("SELECT SUM(duree) as sum FROM Collecte "							
-				+ "WHERE id_equipe = " + id_equipe + " AND date_debut >= date(" + date_deb +
-				") AND date_debut <= date(" + "\"" + date_fin + "\""+ ")");
+		ResultSet rs = statement.executeQuery("SELECT SUM(duree) as sum FROM Collecte "							//Requête SQL
+				+ "WHERE id_equipe = " + id_equipe + " AND date_debut >= date('" + date_deb +
+				"') AND date_debut <= date('" + date_fin + "')");
 		rs.next();
 		double poids_mensuel = rs.getDouble("sum");																//Récupération de la statistique
 		this.Poids_mensuel = poids_mensuel;
@@ -174,11 +174,11 @@ public class Stat_equipe {
 		
 		//Récupération de la requête SQL pour le nombre de km parcourus ce mois-ci par l'équipe
 		Statement statement = Connexion.getInstance().createStatement();											//Création du statement de la BDD
-		ResultSet rs = statement.executeQuery("SELECT SUM(distance) as sum FROM Trajet "
+		ResultSet rs = statement.executeQuery("SELECT SUM(distance) as sum FROM Trajet "							//Requête SQL
 				+ "JOIN Collecte ON Trajet.id_trajet = Collecte.id_trajet "
 				+ "WHERE Collecte.id_equipe = " + id_equipe
-				+ " AND Collecte.date_debut >= date("+ "\"" + date_deb + "\"" + ")"
-				+ " AND Collecte.date_fin <= date(" + "\"" + date_fin + "\"" + ")"); 
+				+ " AND Collecte.date_debut >= date('" + date_deb + "')"
+				+ " AND Collecte.date_fin <= date('" + date_fin + "')"); 
 		rs.next();
 		double Km_parcourus_mensuel = rs.getDouble("sum");														//Récupération de la statistique
 		this.km_parcourus_mensuel = Km_parcourus_mensuel;
@@ -215,7 +215,18 @@ public class Stat_equipe {
 			System.out.println("La statistique a été ajoutée :)");
 		}
 		else{
-			System.out.println("Votre statistique se trouve ci_dessus!");
+			System.out.println("Votre statistique se trouve ci-dessus!");
 		}
+	}
+	
+	public static void main(String [] args){
+		try {
+			ajout_stat_equipe(7, "05-2018");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 }
