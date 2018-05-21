@@ -17,8 +17,8 @@ public class Main {
 	public static String menu() {
 		int choix;
 		String str="n";
-		System.out.println("Que voulez vous faire ?");
-		System.out.println("Pour faire une recherche, tapez 1");
+		System.out.println("\nQue voulez vous faire ?");
+		System.out.println("\nPour faire une recherche, tapez 1");
 		System.out.println("Pour modifier la BDD, tapez 2");
 		System.out.println("Pour calculer les statistiques, tapez 3");
 		System.out.println("Pour visualiser la carte, tapez 4");

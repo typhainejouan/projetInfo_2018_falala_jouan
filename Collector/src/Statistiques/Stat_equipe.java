@@ -196,7 +196,7 @@ public class Stat_equipe {
 		Stat_equipe stat = new Stat_equipe(id_equipe, annee_mois);
 		
 		//Recherche de la collecte à modifier avec la méthode Administrateur.recherche()
-		System.out.println("Recherchez la statistique que vous voulez voir");
+		System.out.println("Recherchez la statistique stat équipe que vous voulez voir");
 		List<ArrayList<Object>> recherche = Administrateur.recherche();	
 							
 		//Test d'existence de la statistique
@@ -217,16 +217,5 @@ public class Stat_equipe {
 		else{
 			System.out.println("Votre statistique se trouve ci-dessus!");
 		}
-	}
-	
-	public static void main(String [] args){
-		try {
-			ajout_stat_equipe(7, "05-2018");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
 	}
 }

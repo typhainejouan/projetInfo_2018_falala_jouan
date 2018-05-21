@@ -182,7 +182,7 @@ public class Stat_secteur {
 	 */
 	public void setPopulation(String id_secteur) throws SQLException{
 		Statement statement = Connexion.getInstance().createStatement();
-		ResultSet rs = statement.executeQuery("SELECT Population from Secteur WHERE id_secteur = " + id_secteur);
+		ResultSet rs = statement.executeQuery("SELECT Population from Secteur WHERE id_secteur = " + "\"" + id_secteur + "\"");
 		rs.next();
 		int pop = rs.getInt("Population");
 		this.Population = pop;
@@ -195,7 +195,7 @@ public class Stat_secteur {
 	 */
 	public void setSurface(String id_secteur) throws SQLException {
 		Statement statement = Connexion.getInstance().createStatement();
-		ResultSet rs = statement.executeQuery("SELECT Surface FROM Secteur WHERE id_secteur = " + id_secteur);
+		ResultSet rs = statement.executeQuery("SELECT Surface FROM Secteur WHERE id_secteur = " + "\"" + id_secteur + "\"");
 		rs.next();
 		double surf = rs.getDouble("Surface");
 		this.Surface = surf;
@@ -219,7 +219,7 @@ public class Stat_secteur {
 		String date_moins = "\'" + annee_2 + "-" + Connexion.date("mois_jour") + "\'";
 		Statement statement = Connexion.getInstance().createStatement();
 		ResultSet rs = statement.executeQuery("SELECT SUM(Poids_dechet) as sum FROM Collecte WHERE id_secteur = "
-		+ id_secteur + " AND type_dechet = 'NR' AND date_debut > date("+ date_moins + ")");
+			+ "\""+ id_secteur + "\"" + " AND type_dechet = 'NR' AND date_debut > date("+ date_moins + ")");
 		rs.next();
 		double Poids = rs.getDouble("sum");
 		this.Poids_NR_secteur_annuel = Poids;
@@ -236,7 +236,7 @@ public class Stat_secteur {
 		String date_moins = "\'" + annee_2 + "-" + Connexion.date("mois_jour") + "\'";
 		Statement statement = Connexion.getInstance().createStatement();
 		ResultSet rs = statement.executeQuery("SELECT SUM(Poids_dechet) as sum FROM Collecte WHERE id_secteur = "
-		+ id_secteur + " AND type_dechet = 'Rec' AND date_debut > date("+ date_moins + ")");
+		+ "\""+ id_secteur + "\""+ " AND type_dechet = 'Rec' AND date_debut > date("+ date_moins + ")");
 		rs.next();
 		double Poids = rs.getDouble("sum");
 		this.Poids_NR_secteur_annuel = Poids;
@@ -255,7 +255,7 @@ public class Stat_secteur {
 	 */
 	public void setPoids_moyen_hab_annuel(String id_secteur) throws SQLException {
 		Statement statement = Connexion.getInstance().createStatement();
-		ResultSet rs = statement.executeQuery("SELECT Population FROM Secteur WHERE id_secteur = " + id_secteur);
+		ResultSet rs = statement.executeQuery("SELECT Population FROM Secteur WHERE id_secteur = " + "\""+ id_secteur+ "\"");
 		rs.next();
 		int pop = rs.getInt("Population");
 		this.Poids_moyen_hab_annuel = this.Poids_total_secteur_annuel/pop;
@@ -267,7 +267,7 @@ public class Stat_secteur {
 	 */
 	public void setTemps_moyen_zone(String id_secteur) throws SQLException{
 		Statement statement = Connexion.getInstance().createStatement();
-		ResultSet rs = statement.executeQuery("SELECT AVG(duree) as moyenne FROM Collecte WHERE id_secteur = " + id_secteur);
+		ResultSet rs = statement.executeQuery("SELECT AVG(duree) as moyenne FROM Collecte WHERE id_secteur = " + "\""+ id_secteur+ "\"");
 		rs.next();
 		double avg = rs.getDouble("moyenne");
 		this.Temps_moyen_secteur = avg;
@@ -283,7 +283,8 @@ public class Stat_secteur {
 		
 		PreparedStatement ajout = Connexion.getInstance().prepareStatement("UPDATE"
 				+ " Stat_secteur SET Population = ?, Surface = ?, Densite = ?, Poids_NR_secteur_annuel = ?,"
-				+ " Poids_Rec_secteur_annuel = ?, Poids_total_secteur_annuel = ?, Poids_moyen_hab_annuel = ?, Temps_moyen_secteur = ?");
+				+ " Poids_Rec_secteur_annuel = ?, Poids_total_secteur_annuel = ?, Poids_moyen_hab_annuel = ?, Temps_moyen_secteur = ?"
+				+ " WHERE id_secteur = " + "\""  +id_secteur + "\"");
 		
 		ajout.setInt(1, stat.getPopulation());
 		ajout.setDouble(2, stat.getSurface());
@@ -297,7 +298,6 @@ public class Stat_secteur {
 		System.out.println("Ajout effectué :)");
 		
 		//Mise à jour de l'historique
-		Connexion.log("Ajout", "Stat_Collecte");
-	}
-	
+		Connexion.log("Ajout", "Stat_Secteur");
+	}	
 }

@@ -45,17 +45,21 @@ public class Administrateur extends Utilisateur{
 	public static void calcul_stat() throws SQLException{
 
 		//Ajout stat collecte
+		System.out.println("\nAjout stat collecte");
 		Stat_collecte.ajout_BDD_stat_collecte();
 
 		//Ajout stat eboueur
+		System.out.println("\nAjout stat eboueur");
 		Stat_eboueur.modif_stat_ebou_BDD();;
 
 		//Ajout stat equipe
 		for(int i=1; i<=6; i++) {
+			System.out.println("\nAjout stat equipe " + i);
 			Stat_equipe.ajout_stat_equipe(i, "2018-05");
 		}
 
 		//Ajout stat secteur
+		System.out.println("\nAjout stat secteur");
 		String[] list_id_secteur = new String[6];
 		int i = 0;
 		Statement statement = Connexion.getInstance().createStatement();
@@ -202,7 +206,7 @@ public class Administrateur extends Utilisateur{
 		}		
 	}
 
-	//Modification
+	//Modification admin
 	/**
 	 * Méthode qui demande à l'admin de rechercher un admin dans
 	 * la table Administrateur de la BDD, puis d'entrer de nouveaux paramètres,
